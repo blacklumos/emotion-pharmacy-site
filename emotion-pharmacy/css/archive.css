@@ -1,0 +1,802 @@
+/* 信件档案、信纸阅读与结尾 · 孟菲斯纸片
+ * 信件是纸，但不是温柔的米色渐变：粗黑边、彩色贴纸、硬投影和图案。
+ */
+
+/* ---------- 档案 ---------- */
+
+.archive-screen {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: calc(100dvh - 230px);
+  padding-bottom: 6px;
+}
+
+.archive-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 2px;
+}
+
+.archive-head h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 900;
+  line-height: 1.25;
+}
+
+.archive-meta {
+  padding: 3px 9px;
+  border: 3px solid #000;
+  background: var(--yellow);
+  box-shadow: 3px 3px 0 #000;
+  font-size: 0.7rem;
+  font-weight: 900;
+  line-height: 1.5;
+  text-align: right;
+}
+
+.archive-intro {
+  max-width: 62ch;
+  padding: 8px 10px;
+  border: 4px solid #000;
+  background: var(--pink);
+  box-shadow: 4px 4px 0 #000;
+  font-size: 0.84rem;
+  font-weight: 500;
+  line-height: 1.75;
+  transform: rotate(-0.4deg);
+}
+
+.archive-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 2px 0;
+}
+
+.letter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 14px;
+  margin-top: 2px;
+}
+
+.letter-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 156px;
+  padding: 13px 14px 20px;
+  border: 4px solid #000;
+  background: var(--bg);
+  box-shadow: 5px 5px 0 #000;
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  transform: rotate(-0.6deg);
+  transition: background-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.letter-card:nth-child(even) {
+  transform: rotate(0.6deg);
+}
+
+.letter-card:hover {
+  background: var(--pink);
+  box-shadow: 9px 9px 0 #000;
+  transform: rotate(0);
+}
+
+.letter-card:active {
+  transform: translate(5px, 5px);
+  box-shadow: none;
+}
+
+.letter-card > :not(.geo):not(.letter-card__seal) {
+  position: relative;
+  z-index: 2;
+}
+
+.letter-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 10px;
+  border-top: 4px solid #000;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.pattern--dots::before {
+  background-image: radial-gradient(#000 1.7px, transparent 2px);
+  background-size: 8px 8px;
+}
+
+.pattern--zigzag::before {
+  background-image: repeating-linear-gradient(135deg, #000 0 3px, transparent 3px 7px);
+}
+
+.pattern--waves::before {
+  background-image: repeating-linear-gradient(0deg, #000 0 2px, transparent 2px 6px);
+}
+
+.pattern--grid::before {
+  background-image:
+    repeating-linear-gradient(90deg, #000 0 2px, transparent 2px 8px),
+    repeating-linear-gradient(0deg, #000 0 2px, transparent 2px 8px);
+}
+
+.pattern--checker::before {
+  background-image: repeating-conic-gradient(#000 0 25%, transparent 0 50%);
+  background-size: 10px 10px;
+}
+
+.pattern--stripes::before {
+  background-image: repeating-linear-gradient(45deg, #000 0 4px, transparent 4px 10px);
+}
+
+.letter-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.64rem;
+  font-weight: 900;
+  line-height: 1.4;
+}
+
+.letter-card__no {
+  white-space: nowrap;
+}
+
+.letter-card__state {
+  padding: 0 5px;
+  border: 3px solid #000;
+  background: var(--theme);
+  color: #000;
+  font-size: 0.6rem;
+  font-weight: 900;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.letter-card__body {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.letter-card__avatar {
+  flex: 0 0 auto;
+  width: 66px;
+  height: 82px;
+  border: 4px solid #000;
+  background: var(--second, var(--cyan));
+  overflow: hidden;
+}
+
+.letter-card__avatar .portrait-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 18%;
+}
+
+.letter-card__avatar--empty {
+  display: grid;
+  place-items: center;
+  background: var(--yellow);
+  font-size: 1.8rem;
+  font-weight: 900;
+}
+
+.letter-card__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.letter-card__name {
+  font-size: 0.66rem;
+  font-weight: 900;
+  line-height: 1.4;
+}
+
+.letter-card__title {
+  font-size: 1.06rem;
+  font-weight: 900;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.letter-card:hover .letter-card__title {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 2px;
+}
+
+.letter-card__sub {
+  font-size: 0.66rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.letter-card__seal {
+  position: absolute;
+  right: 12px;
+  bottom: 16px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 4px solid #000;
+  border-radius: 50%;
+  background: var(--theme);
+  font-size: 0.86rem;
+  font-weight: 900;
+  transform: rotate(-8deg);
+}
+
+.letter-card .geo--circle {
+  left: 12px;
+  bottom: 15px;
+  width: 16px;
+  height: 16px;
+  border-width: 3px;
+  background: var(--second, var(--cyan));
+}
+
+.letter-card .geo--tri {
+  right: 52px;
+  bottom: 15px;
+  border-left-width: 10px;
+  border-right-width: 10px;
+  border-bottom-width: 17px;
+}
+
+.letter-card.is-unread .letter-card__state {
+  background: var(--red);
+}
+
+.letter-card.is-deferred {
+  border-style: dashed;
+}
+
+.letter-card.is-deferred .letter-card__title {
+  text-decoration: line-through;
+  text-decoration-thickness: 3px;
+}
+
+.letter-card--locked {
+  cursor: default;
+  border-style: dashed;
+  background: var(--bg);
+}
+
+.letter-card--locked:hover {
+  background: var(--bg);
+  box-shadow: 5px 5px 0 #000;
+  transform: rotate(-0.6deg);
+}
+
+.letter-card--locked .letter-card__title {
+  font-size: 0.98rem;
+}
+
+.letter-card--locked .letter-card__state {
+  background: var(--yellow);
+}
+
+.archive-empty,
+.archive-pending {
+  margin: 2px 0;
+  padding: 10px 12px;
+  border: 4px solid #000;
+  background: var(--yellow);
+  box-shadow: 4px 4px 0 #000;
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+.archive-pending {
+  background: var(--pink);
+}
+
+/* ---------- 信纸 ---------- */
+
+.overlay--letter .overlay__panel {
+  max-width: 720px;
+  padding: 10px 14px 14px 10px;
+  background: transparent;
+}
+
+.letter-sheet {
+  position: relative;
+  padding: clamp(26px, 5vw, 48px);
+  border: 4px solid #000;
+  background: var(--paper, var(--bg));
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+  animation: unfold var(--dur) var(--ease) both;
+  transform-origin: top center;
+}
+
+.letter-sheet > :not(.geo):not(.overlay__close) {
+  position: relative;
+  z-index: 2;
+}
+
+.letter-sheet .geo--circle {
+  right: 26px;
+  top: 84px;
+  width: 36px;
+  height: 36px;
+  background: var(--second, var(--cyan));
+}
+
+.letter-sheet .geo--tri {
+  left: 22px;
+  bottom: 90px;
+}
+
+.letter-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding-right: 44px;
+  margin-bottom: 14px;
+}
+
+.letter-head__avatar {
+  flex: 0 0 auto;
+  width: 68px;
+  height: 86px;
+  border: 4px solid #000;
+  background: var(--second, var(--cyan));
+  overflow: hidden;
+}
+
+.letter-head__avatar .portrait-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 18%;
+}
+
+.letter-head__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 2px;
+  font-size: 0.64rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.letter-head__name {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 0 6px;
+  border: 3px solid #000;
+  background: var(--theme);
+  font-size: 0.72rem;
+  font-weight: 900;
+  line-height: 1.6;
+}
+
+.letter-seal {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  margin-left: auto;
+  border: 4px solid #000;
+  border-radius: 50%;
+  background: var(--theme);
+  font-size: 1.15rem;
+  font-weight: 900;
+  transform: rotate(-7deg);
+}
+
+.letter-title {
+  margin: 4px 0 18px;
+  font-size: clamp(1.6rem, 3.6vw, 2.1rem);
+  font-weight: 900;
+  line-height: 1.25;
+}
+
+.letter-salutation {
+  margin-bottom: 16px;
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1.7;
+}
+
+.letter-body {
+  max-width: 40em;
+  font-size: clamp(0.98rem, 1.5vw, 1.05rem);
+  font-weight: 500;
+  line-height: 1.9;
+}
+
+.letter-body p {
+  margin: 0;
+}
+
+.letter-gap {
+  display: block;
+  height: 0.8em;
+}
+
+.letter-signature {
+  margin-top: 24px;
+  text-align: right;
+  font-size: 1.05rem;
+  font-weight: 900;
+  line-height: 1.6;
+}
+
+.letter-echo {
+  margin-top: 26px;
+  padding: 14px;
+  background: #000;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1.75;
+}
+
+.letter-echo blockquote {
+  margin: 8px 0 6px;
+  padding: 0;
+  color: var(--yellow);
+  font-size: 0.96rem;
+  font-weight: 900;
+  line-height: 1.7;
+}
+
+.letter-echo__med {
+  display: inline-block;
+  padding: 0 6px;
+  border: 3px solid var(--yellow);
+  color: var(--yellow);
+  font-size: 0.62rem;
+  font-weight: 900;
+  line-height: 1.6;
+}
+
+.letter-callback {
+  margin-top: 16px;
+  padding: 14px;
+  background: var(--pink);
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+.letter-callback p {
+  margin-bottom: 8px;
+}
+
+.letter-memory {
+  margin-top: 22px;
+  padding: 14px;
+  background: var(--cyan);
+}
+
+.letter-memory__label {
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.65;
+}
+
+.letter-memory__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.letter-memory.is-remembered {
+  background: var(--yellow);
+}
+
+.letter-memory.is-deferred {
+  background: var(--pink);
+}
+
+.letter-closing {
+  margin-top: 16px;
+  padding: 12px 14px;
+  background: #000;
+  color: var(--yellow);
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.8;
+  animation: beatIn var(--dur) var(--ease) both;
+}
+
+.letter-close-row {
+  margin-top: 18px;
+  text-align: center;
+}
+
+/* ---------- 结尾 ---------- */
+
+.overlay--ending .overlay__panel {
+  max-width: 640px;
+  padding: 10px 14px 14px 10px;
+  background: transparent;
+}
+
+.ending-sheet {
+  position: relative;
+  padding: clamp(26px, 5vw, 46px);
+  border: 4px solid #000;
+  background: var(--bg);
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+  animation: unfold var(--dur) var(--ease) both;
+}
+
+.ending-sheet > :not(.geo):not(.overlay__close) {
+  position: relative;
+  z-index: 2;
+}
+
+.ending-sheet .geo--circle {
+  right: 20px;
+  top: 64px;
+  width: 38px;
+  height: 38px;
+  background: var(--red);
+}
+
+.ending-sheet .geo--tri {
+  left: 20px;
+  bottom: 60px;
+}
+
+.ending-sheet .geo--stripes {
+  right: 18px;
+  bottom: 60px;
+}
+
+.ending-title {
+  margin: 6px 0 16px;
+  font-size: clamp(1.7rem, 4vw, 2.2rem);
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+.ending-text {
+  margin-bottom: 10px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  line-height: 1.85;
+}
+
+.ending-final {
+  margin-top: 18px;
+}
+
+.ending-final__label {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 0 6px;
+  border: 3px solid #000;
+  background: var(--yellow);
+  font-size: 0.64rem;
+  font-weight: 900;
+  line-height: 1.6;
+}
+
+.ending-letter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px;
+  border: 4px solid #000;
+  background: var(--bg);
+  box-shadow: 4px 4px 0 #000;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.ending-letter:hover {
+  background: var(--pink);
+  box-shadow: 7px 7px 0 #000;
+}
+
+.ending-letter:active {
+  transform: translate(5px, 5px);
+  box-shadow: none;
+}
+
+.ending-letter__avatar {
+  flex: 0 0 auto;
+  width: 52px;
+  height: 64px;
+  border: 3px solid #000;
+  background: var(--second, var(--cyan));
+  overflow: hidden;
+}
+
+.ending-letter__avatar .portrait-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 18%;
+}
+
+.ending-letter__name {
+  font-size: 0.82rem;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.ending-letter__title {
+  flex: 1;
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.ending-letter__seal {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  border: 3px solid #000;
+  border-radius: 50%;
+  background: var(--theme);
+  font-size: 0.8rem;
+  font-weight: 900;
+  transform: rotate(-8deg);
+}
+
+.ending-deferred {
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 4px solid #000;
+}
+
+.ending-deferred__label {
+  margin-bottom: 8px;
+  font-size: 0.8rem;
+  font-weight: 900;
+  line-height: 1.6;
+}
+
+.ending-deferred__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.ending-note {
+  margin-top: 18px;
+  padding: 8px 10px;
+  background: var(--pink);
+  font-size: 0.76rem;
+  font-weight: 700;
+  line-height: 1.65;
+}
+
+.ending-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 22px;
+}
+
+.ending-foot {
+  margin-top: 20px;
+  font-size: 0.66rem;
+  font-weight: 700;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* ---------- 响应式 ---------- */
+
+@media (max-width: 760px) {
+  .archive-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .archive-meta {
+    text-align: left;
+  }
+
+  .letter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .letter-card {
+    min-height: 138px;
+  }
+
+  .overlay--letter .overlay__panel,
+  .overlay--ending .overlay__panel {
+    max-height: 92dvh;
+  }
+
+  .letter-sheet,
+  .ending-sheet {
+    padding: 28px 20px 24px;
+  }
+
+  .letter-head {
+    gap: 9px;
+    padding-right: 40px;
+  }
+
+  .letter-head__avatar {
+    width: 56px;
+    height: 72px;
+  }
+
+  .letter-seal {
+    width: 42px;
+    height: 42px;
+    font-size: 1rem;
+  }
+
+  .letter-body {
+    line-height: 1.85;
+  }
+
+  .letter-echo,
+  .letter-callback,
+  .letter-memory {
+    margin-top: 16px;
+  }
+
+  .letter-sheet .geo--circle {
+    display: none;
+  }
+
+  .ending-letter {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 420px) {
+  .letter-card {
+    min-height: 130px;
+  }
+
+  .letter-card__avatar {
+    width: 58px;
+    height: 72px;
+  }
+
+  .letter-head__avatar {
+    width: 44px;
+    height: 56px;
+  }
+
+  .letter-head {
+    padding-right: 36px;
+  }
+
+  .letter-title {
+    margin-top: 0;
+  }
+}

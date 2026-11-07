@@ -1,0 +1,17 @@
+# 操作系统
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# 临时截图
+.shots/
+
+# Android 构建产物
+emotion-pharmacy/android/build/
+
+# 构建时复制到 Android 的网页副本
+emotion-pharmacy/android/app/src/main/assets/www/
+
+# 签名私钥只保留在本地
+emotion-pharmacy/android/keystore/*.jks
+emotion-pharmacy/android/keystore/*.keystore

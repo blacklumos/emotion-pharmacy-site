@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 520" width="400" height="520" role="img" aria-label="沈禾的立绘">
+  <g stroke="#000" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+    <circle cx="200" cy="238" r="172" fill="#ff6b6b"/>
+
+    <!-- 背景几何 -->
+    <circle cx="78" cy="124" r="30" fill="#1dd1a1"/>
+    <path d="M302 86 L356 86 L329 140 Z" fill="#feca57"/>
+    <g fill="#feca57" stroke-width="6">
+      <circle cx="316" cy="300" r="16"/>
+      <circle cx="340" cy="324" r="16"/>
+      <circle cx="292" cy="324" r="16"/>
+      <circle cx="316" cy="348" r="16"/>
+    </g>
+    <g transform="rotate(12 80 320)">
+      <rect x="58" y="302" width="46" height="46" fill="#1dd1a1"/>
+      <path d="M72 302 V348 M88 302 V348" stroke-width="5"/>
+    </g>
+    <circle cx="326" cy="190" r="8" fill="#000"/>
+    <circle cx="86" cy="216" r="7" fill="#000"/>
+
+    <!-- 后发与发髻 -->
+    <circle cx="200" cy="118" r="34" fill="#151515"/>
+    <path d="M110 244 C104 152 146 122 200 122 C254 122 296 152 290 244 L294 330 C294 348 276 350 274 332 L268 250 L132 250 L126 332 C124 350 106 348 106 330 Z" fill="#151515"/>
+
+    <!-- 身体：开衫 -->
+    <path d="M58 520 C58 448 114 384 200 384 C286 384 342 448 342 520 Z" fill="#fef9ef"/>
+    <path d="M58 520 C58 448 114 384 166 384 C156 430 130 476 104 520 Z" fill="#1dd1a1"/>
+    <path d="M342 520 C342 448 286 384 234 384 C244 430 270 476 296 520 Z" fill="#1dd1a1"/>
+    <path d="M160 384 L200 430 L240 384" fill="none" stroke-width="22"/>
+    <path d="M160 384 L200 430 L240 384" fill="none" stroke="#fef9ef" stroke-width="8"/>
+    <g fill="#000" stroke="none">
+      <circle cx="200" cy="448" r="5"/>
+      <circle cx="200" cy="472" r="5"/>
+      <circle cx="200" cy="496" r="5"/>
+    </g>
+
+    <!-- 脖子 -->
+    <path d="M172 316 h56 v68 a28 28 0 0 1 -56 0 Z" fill="#ffd8c2"/>
+
+    <!-- 头 -->
+    <ellipse cx="200" cy="236" rx="82" ry="94" fill="#ffd8c2"/>
+
+    <!-- 前发：侧分 -->
+    <path d="M118 224 C122 154 154 130 200 130 C246 130 278 154 282 224 C268 184 240 168 206 168 C172 168 140 184 118 224 Z" fill="#151515"/>
+
+    <!-- 脸 -->
+    <path d="M156 216 q16 -9 31 -1" fill="none"/>
+    <path d="M214 214 q16 -8 31 1" fill="none"/>
+    <circle cx="172" cy="246" r="7" fill="#000" stroke="none"/>
+    <circle cx="228" cy="246" r="7" fill="#000" stroke="none"/>
+    <circle cx="174" cy="243" r="2.5" fill="#fff" stroke="none"/>
+    <circle cx="230" cy="243" r="2.5" fill="#fff" stroke="none"/>
+    <path d="M200 256 l-8 20 q8 6 16 0" fill="none" stroke-width="6"/>
+    <path d="M184 292 q16 8 32 0" fill="none" stroke-width="7"/>
+    <circle cx="150" cy="278" r="10" fill="#ff9f9f" stroke="none"/>
+    <circle cx="250" cy="278" r="10" fill="#ff9f9f" stroke="none"/>
+
+    <!-- 两张票 -->
+    <g transform="rotate(-10 150 452)">
+      <rect x="96" y="420" width="92" height="58" fill="#feca57"/>
+      <path d="M120 420 V478" stroke-width="5"/>
+      <path d="M132 436 H172 M132 452 H172" stroke-width="4"/>
+    </g>
+    <g transform="rotate(8 238 462)">
+      <rect x="200" y="434" width="92" height="58" fill="#48dbfb"/>
+      <path d="M224 434 V492" stroke-width="5"/>
+      <path d="M236 450 H276 M236 466 H276" stroke-width="4"/>
+    </g>
+    <path d="M100 470 q-8 16 8 22 q16 6 24 -10 l-6 -22 Z" fill="#ffd8c2"/>
+    <path d="M274 490 q8 16 -8 22 q-16 6 -24 -10 l6 -22 Z" fill="#ffd8c2"/>
+  </g>
+</svg>

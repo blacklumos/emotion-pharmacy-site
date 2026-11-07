@@ -1,0 +1,11 @@
+* text=auto
+
+*.apk binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.jks binary
+*.keystore binary
+
+*.ps1 text eol=crlf

@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 520" width="400" height="520" role="img" aria-label="顾怀安的立绘">
+  <g stroke="#000" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+    <circle cx="200" cy="238" r="172" fill="#ff9f43"/>
+
+    <!-- 背景几何 -->
+    <g transform="rotate(-10 86 110)">
+      <rect x="52" y="88" width="70" height="30" fill="#fef9ef"/>
+      <path d="M66 88 V118 M82 88 V118 M98 88 V118" stroke-width="5"/>
+    </g>
+    <circle cx="320" cy="116" r="28" fill="#48dbfb"/>
+    <rect x="292" y="300" width="46" height="46" fill="#feca57" transform="rotate(16 315 323)"/>
+    <circle cx="80" cy="310" r="8" fill="#000"/>
+    <circle cx="322" cy="230" r="7" fill="#000"/>
+    <path d="M72 214 l14 14 m0 -14 l-14 14" stroke-width="9"/>
+
+    <!-- 后发（灰白） -->
+    <path d="M110 246 C106 154 146 124 200 124 C254 124 294 154 290 246 L294 312 C294 328 278 330 276 314 L270 250 L130 250 L124 314 C122 330 106 328 106 312 Z" fill="#c9c3b8"/>
+
+    <!-- 身体与围裙 -->
+    <path d="M58 520 C58 448 114 384 200 384 C286 384 342 448 342 520 Z" fill="#fef9ef"/>
+    <path d="M58 520 C58 448 114 384 166 384 C156 430 130 476 104 520 Z" fill="#fef9ef"/>
+    <path d="M342 520 C342 448 286 384 234 384 C244 430 270 476 296 520 Z" fill="#fef9ef"/>
+    <path d="M152 404 H248 L258 520 H142 Z" fill="#48dbfb"/>
+    <path d="M152 404 L120 388 M248 404 L280 388" stroke-width="10"/>
+    <path d="M168 452 H232 V500 H168 Z" fill="#fef9ef" stroke-width="6"/>
+
+    <!-- 脖子 -->
+    <path d="M172 316 h56 v68 a28 28 0 0 1 -56 0 Z" fill="#f2c9a4"/>
+
+    <!-- 头 -->
+    <ellipse cx="200" cy="236" rx="82" ry="94" fill="#f2c9a4"/>
+
+    <!-- 前发与鬓角 -->
+    <path d="M118 224 C122 154 154 130 200 130 C246 130 278 154 282 224 C270 190 244 172 200 172 C156 172 130 190 118 224 Z" fill="#c9c3b8"/>
+    <path d="M120 238 C114 268 116 292 124 304" fill="none" stroke="#c9c3b8" stroke-width="18"/>
+    <path d="M280 238 C286 268 284 292 276 304" fill="none" stroke="#c9c3b8" stroke-width="18"/>
+
+    <!-- 脸：年长 -->
+    <path d="M152 214 q18 -10 34 0" fill="none" stroke="#b9b2a7"/>
+    <path d="M214 214 q18 -10 34 0" fill="none" stroke="#b9b2a7"/>
+    <circle cx="172" cy="246" r="7" fill="#000" stroke="none"/>
+    <circle cx="228" cy="246" r="7" fill="#000" stroke="none"/>
+    <circle cx="174" cy="243" r="2.5" fill="#fff" stroke="none"/>
+    <circle cx="230" cy="243" r="2.5" fill="#fff" stroke="none"/>
+    <path d="M200 256 l-8 20 q8 6 16 0" fill="none" stroke-width="6"/>
+    <path d="M178 292 q22 -10 44 0" fill="none" stroke-width="7"/>
+    <path d="M176 280 q24 -14 48 0" fill="none" stroke="#b9b2a7" stroke-width="9"/>
+    <path d="M148 258 q-8 4 -8 12 M252 258 q8 4 8 12" fill="none" stroke-width="5"/>
+    <circle cx="150" cy="278" r="7" fill="#ff9f9f" stroke="none"/>
+    <circle cx="250" cy="278" r="7" fill="#ff9f9f" stroke="none"/>
+
+    <!-- 帽子 -->
+    <path d="M118 172 C122 132 156 110 200 110 C244 110 278 132 282 172 Z" fill="#feca57"/>
+    <path d="M108 170 H292 C302 170 306 180 298 186 L104 186 C96 180 100 170 108 170 Z" fill="#151515"/>
+    <path d="M128 156 H272" stroke-width="6"/>
+
+    <!-- 手里的鞋 -->
+    <g transform="rotate(-6 196 464)">
+      <path d="M120 492 C120 458 150 440 184 448 L214 440 C248 432 274 452 274 478 L274 494 Z" fill="#b07a4a"/>
+      <path d="M120 492 H274 L274 506 H120 Z" fill="#151515"/>
+      <path d="M152 470 q20 -12 40 0 M160 482 q16 -8 32 0" fill="none" stroke="#fef9ef" stroke-width="5"/>
+      <circle cx="236" cy="462" r="6" fill="#fef9ef"/>
+      <circle cx="256" cy="468" r="6" fill="#fef9ef"/>
+    </g>
+    <path d="M112 486 q-8 16 8 22 q16 6 24 -10 l-6 -22 Z" fill="#f2c9a4"/>
+    <path d="M278 486 q8 16 -8 22 q-16 6 -24 -10 l6 -22 Z" fill="#f2c9a4"/>
+  </g>
+</svg>

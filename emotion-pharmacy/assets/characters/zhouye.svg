@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 520" width="400" height="520" role="img" aria-label="周野的立绘">
+  <g stroke="#000" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+    <circle cx="200" cy="238" r="172" fill="#48dbfb"/>
+
+    <!-- 背景几何 -->
+    <path d="M70 88 L128 88 L99 146 Z" fill="#ff6b6b"/>
+    <g transform="rotate(-12 300 110)">
+      <rect x="272" y="92" width="64" height="28" fill="#feca57"/>
+      <path d="M284 92 V120 M298 92 V120 M312 92 V120" stroke-width="5"/>
+    </g>
+    <rect x="66" y="300" width="46" height="46" fill="#fef9ef" transform="rotate(14 89 323)"/>
+    <circle cx="330" cy="300" r="8" fill="#000"/>
+    <circle cx="318" cy="184" r="7" fill="#000"/>
+    <circle cx="76" cy="204" r="7" fill="#000"/>
+
+    <!-- 后发 -->
+    <path d="M112 242 C108 152 146 122 200 122 C254 122 292 152 288 242 L292 306 C292 322 276 324 274 308 L270 248 L130 248 L126 308 C124 324 108 322 108 306 Z" fill="#151515"/>
+
+    <!-- 身体：衬衫 + 外套 -->
+    <path d="M58 520 C58 448 114 384 200 384 C286 384 342 448 342 520 Z" fill="#fef9ef"/>
+    <path d="M58 520 C58 448 114 384 166 384 C156 430 130 476 104 520 Z" fill="#48dbfb"/>
+    <path d="M342 520 C342 448 286 384 234 384 C244 430 270 476 296 520 Z" fill="#48dbfb"/>
+    <path d="M160 384 L200 432 L240 384" fill="none" stroke-width="22"/>
+    <path d="M160 384 L200 432 L240 384" fill="none" stroke="#fef9ef" stroke-width="8"/>
+    <path d="M200 396 L214 414 L200 496 L186 414 Z" fill="#ff6b6b"/>
+    <path d="M200 432 L214 414 L200 496 L186 414 Z" fill="#ff6b6b" stroke-width="5"/>
+
+    <!-- 脖子 -->
+    <path d="M172 316 h56 v68 a28 28 0 0 1 -56 0 Z" fill="#ffd8c2"/>
+
+    <!-- 头 -->
+    <ellipse cx="200" cy="236" rx="82" ry="94" fill="#ffd8c2"/>
+
+    <!-- 前发：短碎发 -->
+    <path d="M120 220 C124 154 158 132 200 132 C242 132 276 154 280 220 C272 188 254 172 230 166 C214 180 192 184 170 176 C152 184 134 198 120 220 Z" fill="#151515"/>
+
+    <!-- 脸 -->
+    <path d="M154 214 q17 -10 33 -2" fill="none"/>
+    <path d="M214 212 q17 -8 32 2" fill="none"/>
+    <circle cx="172" cy="246" r="8" fill="#000" stroke="none"/>
+    <circle cx="228" cy="246" r="8" fill="#000" stroke="none"/>
+    <circle cx="174" cy="243" r="2.5" fill="#fff" stroke="none"/>
+    <circle cx="230" cy="243" r="2.5" fill="#fff" stroke="none"/>
+    <path d="M200 256 l-8 20 q8 6 16 0" fill="none" stroke-width="6"/>
+    <path d="M180 292 H220" fill="none" stroke-width="7"/>
+    <circle cx="150" cy="278" r="8" fill="#ff9f9f" stroke="none"/>
+    <circle cx="250" cy="278" r="8" fill="#ff9f9f" stroke="none"/>
+
+    <!-- 手里的文件夹 -->
+    <g transform="rotate(-4 190 462)">
+      <rect x="118" y="414" width="144" height="96" fill="#000"/>
+      <rect x="134" y="430" width="112" height="64" fill="#fef9ef"/>
+      <path d="M150 450 H230 M150 466 H230 M150 482 H204" stroke-width="5"/>
+      <rect x="170" y="404" width="40" height="22" fill="#feca57"/>
+    </g>
+    <path d="M110 480 q-8 16 8 22 q16 6 24 -10 l-6 -22 Z" fill="#ffd8c2"/>
+    <path d="M270 486 q8 16 -8 22 q-16 6 -24 -10 l6 -22 Z" fill="#ffd8c2"/>
+  </g>
+</svg>

@@ -1,0 +1,568 @@
+/* 配药界面 · 孟菲斯药柜
+ * 药瓶、药柜与客人的专属回应；选药不结束对话，交药才结束。
+ */
+
+.dispense-screen {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: calc(100dvh - 230px);
+}
+
+.dispense-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 0 2px;
+}
+
+.dispense-head h2 {
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+.dispense-hint {
+  padding: 2px 8px;
+  border: 3px solid #000;
+  background: var(--cyan);
+  box-shadow: 3px 3px 0 #000;
+  font-size: 0.68rem;
+  font-weight: 900;
+  line-height: 1.45;
+  text-align: right;
+}
+
+.dispense-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 350px) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+/* ---------- 药瓶 ---------- */
+
+.bottle-stand {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  padding: 18px;
+  border: 4px solid #000;
+  background: var(--bg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.bottle-stand > :not(.geo) {
+  position: relative;
+  z-index: 2;
+}
+
+.bottle-stand .geo--circle {
+  left: 14px;
+  top: 14px;
+  width: 30px;
+  height: 30px;
+  background: var(--red);
+}
+
+.bottle-stand .geo--tri {
+  right: 18px;
+  top: 18px;
+}
+
+.bottle-stand .geo--stripes {
+  right: 16px;
+  bottom: 16px;
+}
+
+.bottle-stand__bottle {
+  width: min(200px, 62%);
+  margin: 4px auto 0;
+}
+
+.bottle-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.bottle-liquid {
+  transition: transform var(--dur) var(--ease);
+}
+
+.med-detail {
+  padding: 12px;
+  background: #000;
+  color: var(--yellow);
+}
+
+.med-detail__meaning {
+  margin-bottom: 5px;
+  color: var(--yellow);
+  font-size: 0.9rem;
+  font-weight: 900;
+  line-height: 1.6;
+}
+
+.med-detail__note {
+  color: #fff;
+  font-size: 0.74rem;
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+.dispense-note {
+  padding: 4px 8px;
+  border: 3px solid #000;
+  background: var(--pink);
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.dispense-note::before {
+  content: "请留意 ";
+  font-weight: 900;
+}
+
+.bottle-stand .btn {
+  width: 100%;
+}
+
+/* ---------- 药柜 ---------- */
+
+.shelf-side {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.shelf {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: min-content;
+  gap: 12px;
+}
+
+.med-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-height: 196px;
+  padding: 12px;
+  border: 4px solid #000;
+  background: var(--bg);
+  box-shadow: 5px 5px 0 #000;
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  transition: background-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.med-card > :not(.geo):not(.med-card__band):not(.med-card__flag) {
+  position: relative;
+  z-index: 2;
+}
+
+.med-card:hover {
+  background: var(--c);
+  box-shadow: var(--shadow-lg);
+}
+
+.med-card:active {
+  transform: translate(5px, 5px);
+  box-shadow: none;
+}
+
+.med-card__band {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 52px;
+  border-bottom: 4px solid #000;
+  background: var(--c);
+}
+
+.med-card .geo--circle {
+  right: 10px;
+  bottom: 12px;
+  width: 20px;
+  height: 20px;
+  border-width: 3px;
+  background: var(--second, var(--cyan));
+}
+
+.med-card .geo--tri {
+  left: 10px;
+  bottom: 14px;
+  transform: rotate(-10deg);
+}
+
+.med-card__glyph {
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  margin-top: 2px;
+  border: 4px solid #000;
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--c);
+  box-shadow: 3px 3px 0 #000;
+}
+
+.med-card__glyph svg {
+  width: 32px;
+  height: 32px;
+}
+
+.med-card__name {
+  margin-top: 6px;
+  font-size: 1.18rem;
+  font-weight: 900;
+  line-height: 1.25;
+}
+
+.med-card__theme {
+  font-size: 0.64rem;
+  font-weight: 900;
+  line-height: 1.4;
+}
+
+.med-card__meaning {
+  margin-top: 3px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+.med-card__flag {
+  position: absolute;
+  right: 7px;
+  top: 7px;
+  z-index: 3;
+  padding: 1px 5px;
+  border: 3px solid #000;
+  background: #000;
+  color: var(--yellow);
+  font-size: 0.56rem;
+  font-weight: 900;
+  line-height: 1.4;
+}
+
+.med-card.is-selected {
+  background: var(--c);
+  box-shadow: var(--shadow-lg), inset 0 0 0 4px #000;
+}
+
+.med-card.is-selected .med-card__name {
+  text-decoration: underline;
+  text-decoration-thickness: 4px;
+  text-underline-offset: 3px;
+}
+
+.shelf-note {
+  padding: 10px 12px;
+  border: 4px solid #000;
+  background: var(--yellow);
+  box-shadow: 4px 4px 0 #000;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.65;
+  transform: rotate(-0.8deg);
+}
+
+.shelf-note__label {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 0 5px;
+  border: 3px solid #000;
+  background: #000;
+  color: var(--yellow);
+  font-size: 0.6rem;
+  font-weight: 900;
+  line-height: 1.6;
+}
+
+/* ---------- 交药后的回应 ---------- */
+
+.given-layout {
+  display: grid;
+  grid-template-columns: minmax(210px, 300px) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.given-aside {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 18px;
+  border: 4px solid #000;
+  background: var(--bg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.given-aside > :not(.geo) {
+  position: relative;
+  z-index: 2;
+}
+
+.given-aside .geo--circle {
+  left: 14px;
+  top: 14px;
+  background: var(--second, var(--cyan));
+}
+
+.given-aside .geo--tri {
+  right: 16px;
+  top: 16px;
+}
+
+.given-bottle {
+  width: min(180px, 76%);
+}
+
+.given-char {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 6px;
+  border: 4px solid #000;
+  background: var(--theme, var(--yellow));
+  box-shadow: 4px 4px 0 #000;
+}
+
+.given-char .portrait-img {
+  width: 110px;
+  height: auto;
+}
+
+.given-char figcaption {
+  padding: 0 5px;
+  background: var(--bg);
+  font-size: 0.78rem;
+  font-weight: 900;
+  line-height: 1.5;
+}
+
+.given-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-height: 0;
+  border: 4px solid #000;
+  background: var(--bg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.dialogue-scroll--given {
+  flex: 0 1 auto;
+  max-height: 42vh;
+  min-height: 84px;
+}
+
+.given-panel .dialogue-hint {
+  border-bottom: 4px solid #000;
+}
+
+.given-panel .dialogue-actions {
+  border-top: 4px solid #000;
+}
+
+/* ---------- 空药柜 ---------- */
+
+.dispense-screen--empty {
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100dvh - 230px);
+}
+
+.empty-card {
+  position: relative;
+  width: min(560px, 100%);
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  padding: clamp(24px, 4vw, 38px);
+  border: 4px solid #000;
+  background: var(--bg);
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+  overflow: hidden;
+}
+
+.empty-card > :not(.geo) {
+  position: relative;
+  z-index: 2;
+}
+
+.empty-card .geo--circle {
+  left: 16px;
+  top: 16px;
+  background: var(--green);
+}
+
+.empty-card .geo--tri {
+  right: 18px;
+  top: 18px;
+}
+
+.empty-bottle {
+  width: 130px;
+  margin-bottom: 4px;
+}
+
+.empty-card h2 {
+  font-size: 1.45rem;
+  font-weight: 900;
+  line-height: 1.4;
+}
+
+.empty-card .idle-actions {
+  justify-content: center;
+}
+
+/* ---------- 响应式 ---------- */
+
+@media (max-width: 940px) {
+  .dispense-layout,
+  .given-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .bottle-stand {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+  }
+
+  .bottle-stand__bottle {
+    width: 140px;
+    margin: 0;
+    grid-row: span 2;
+  }
+
+  .med-detail {
+    grid-column: 2;
+  }
+
+  .dispense-note,
+  .bottle-stand .btn {
+    grid-column: 1 / -1;
+  }
+
+  .given-aside {
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .given-bottle {
+    width: 140px;
+  }
+
+  .given-char .portrait-img {
+    height: 100px;
+    width: auto;
+  }
+}
+
+@media (max-width: 680px) {
+  .dispense-screen {
+    min-height: 0;
+  }
+
+  .dispense-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .dispense-hint {
+    text-align: left;
+  }
+
+  .bottle-stand {
+    grid-template-columns: 110px minmax(0, 1fr);
+    padding: 14px;
+  }
+
+  .bottle-stand__bottle {
+    width: 100px;
+  }
+
+  .med-detail {
+    padding: 9px;
+  }
+
+  .med-detail__meaning {
+    font-size: 0.82rem;
+  }
+
+  .med-detail__note {
+    font-size: 0.7rem;
+  }
+
+  .shelf {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .med-card {
+    min-height: 176px;
+    padding: 10px;
+  }
+
+  .med-card__band {
+    height: 46px;
+  }
+
+  .med-card__name {
+    font-size: 1.05rem;
+  }
+
+  .med-card__meaning {
+    font-size: 0.68rem;
+  }
+
+  .given-aside {
+    flex-direction: row;
+    gap: 14px;
+  }
+
+  .given-bottle {
+    width: 110px;
+  }
+
+  .given-char .portrait-img {
+    height: 84px;
+  }
+
+  .given-panel {
+    min-height: 0;
+  }
+
+  .dialogue-scroll--given {
+    max-height: 38vh;
+    max-height: 38svh;
+  }
+}
