@@ -1,4 +1,4 @@
-/* 信件 02 · 唐沅 · 没有发出去的那条
+/* 信件 02 · 唐沅沅 · 没有发出去的那条
  * 一次来访一封信；variants 按当时配给她的药，给出不同的正文与结尾。
  */
 EP.defineLetters([
@@ -8,7 +8,7 @@ EP.defineLetters([
     eventId: 'event_002',
     number: 2,
     salutation: '老板：',
-    signature: '唐沅',
+    signature: '唐沅沅',
     variants: {
       courage: {
         title: '继续发',

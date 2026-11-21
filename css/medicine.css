@@ -80,6 +80,7 @@
 }
 
 .bottle-stand__bottle {
+  position: relative;
   width: min(200px, 62%);
   margin: 4px auto 0;
 }
@@ -92,6 +93,90 @@
 
 .bottle-liquid {
   transition: transform var(--dur) var(--ease);
+}
+
+.bottle-stand--just-filled .bottle-liquid {
+  animation: bottle-fill 320ms var(--ease) both;
+}
+
+.bottle-stand__bottle.is-pouring .bottle-svg {
+  transform-origin: 55% 84%;
+  animation: bottle-pour 220ms ease-in both;
+}
+
+.pour-drops {
+  position: absolute;
+  left: 52%;
+  top: 10%;
+  width: 28px;
+  height: 60px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bottle-stand__bottle.is-pouring .pour-drops {
+  opacity: 1;
+}
+
+.pour-drops i {
+  position: absolute;
+  left: 0;
+  width: 8px;
+  height: 10px;
+  border: 2px solid #000;
+  border-radius: 50% 50% 60% 60%;
+  background: var(--pour, var(--yellow));
+  animation: pour-drop 220ms ease-in both;
+}
+
+.pour-drops i:nth-child(2) {
+  left: 9px;
+  animation-delay: 35ms;
+}
+
+.pour-drops i:nth-child(3) {
+  left: 3px;
+  animation-delay: 70ms;
+}
+
+@keyframes bottle-fill {
+  0% {
+    transform: scaleY(0.15) rotate(-2deg);
+  }
+  55% {
+    transform: scaleY(1.08) rotate(1.2deg);
+  }
+  100% {
+    transform: scaleY(1) rotate(0deg);
+  }
+}
+
+@keyframes bottle-pour {
+  0% {
+    transform: rotate(0deg) translate(0, 0);
+  }
+  100% {
+    transform: rotate(18deg) translate(8px, 4px);
+  }
+}
+
+@keyframes pour-drop {
+  0% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(18px, 48px);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bottle-stand--just-filled .bottle-liquid,
+  .bottle-stand__bottle.is-pouring .bottle-svg,
+  .pour-drops i {
+    animation: none;
+  }
 }
 
 .med-detail {

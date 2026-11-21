@@ -1,0 +1,261 @@
+/* 公告浮层 · 与信件纸同一套孟菲斯纸张语言 */
+.overlay--notice .overlay__panel {
+  max-width: 780px;
+  max-height: 90dvh;
+  overflow: visible;
+}
+
+.notice-sheet {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-height: 88dvh;
+  border: 4px solid #000;
+  background: var(--bg);
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+}
+
+.notice-sheet .overlay__close {
+  top: 12px;
+  right: 12px;
+  background: var(--pink);
+}
+
+.notice-head {
+  padding: clamp(20px, 4vw, 32px) clamp(20px, 4vw, 34px) 15px;
+  padding-right: 66px;
+  border-bottom: 4px solid #000;
+  background: var(--yellow);
+}
+
+.notice-head .kicker {
+  background: #000;
+  color: var(--yellow);
+  box-shadow: 3px 3px 0 var(--red);
+}
+
+.notice-title {
+  margin: 10px 0 0;
+  font-size: clamp(1.7rem, 4vw, 2.5rem);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+.notice-head__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 9px;
+}
+
+.notice-sub {
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.notice-jump {
+  padding: 6px 10px;
+  border: 4px solid #000;
+  background: var(--red);
+  box-shadow: 4px 4px 0 #000;
+  color: #000;
+  font-size: 0.72rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition: background-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.notice-jump:hover {
+  background: var(--cyan);
+  box-shadow: 7px 7px 0 #000;
+}
+
+.notice-jump:active {
+  transform: translate(4px, 4px);
+  box-shadow: none;
+}
+
+.notice-scroll {
+  flex: 1;
+  min-height: 0;
+  padding: clamp(20px, 4vw, 34px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: auto;
+  scrollbar-color: #000 var(--yellow);
+}
+
+.notice-scroll::-webkit-scrollbar {
+  width: 12px;
+}
+
+.notice-scroll::-webkit-scrollbar-track {
+  background: var(--yellow);
+  border-left: 3px solid #000;
+}
+
+.notice-scroll::-webkit-scrollbar-thumb {
+  background: #000;
+  border: 3px solid #000;
+}
+
+.notice-quote {
+  margin: 0 0 18px;
+  padding: 12px 14px;
+  background: var(--cyan);
+  font-size: clamp(1rem, 2.1vw, 1.18rem);
+  font-weight: 900;
+  line-height: 1.7;
+}
+
+.notice-quote:nth-of-type(2) {
+  background: var(--pink);
+}
+
+.notice-text {
+  max-width: 62ch;
+  margin: 0 0 17px;
+  font-size: 1rem;
+  line-height: 2;
+}
+
+.notice-signature {
+  margin: 22px 0 0;
+  text-align: right;
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
+.notice-rule {
+  position: relative;
+  margin: 30px 0 22px;
+  border-top: 4px solid #000;
+}
+
+.notice-rule span {
+  position: absolute;
+  left: 0;
+  top: -15px;
+  padding: 2px 9px;
+  border: 3px solid #000;
+  background: var(--yellow);
+  font-size: 0.7rem;
+  font-weight: 900;
+  line-height: 1.6;
+}
+
+.notice-team {
+  padding-top: 4px;
+  outline: none;
+}
+
+.notice-team__intro {
+  margin: 0 0 12px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  line-height: 1.8;
+}
+
+.notice-member {
+  margin: 0 0 8px;
+  padding: 9px 12px;
+  background: var(--member, var(--yellow));
+  color: #000;
+}
+
+.notice-member__head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.notice-member__head b {
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.notice-member__head span {
+  padding: 1px 6px;
+  border: 2px solid #000;
+  background: var(--bg);
+  font-size: 0.68rem;
+  font-weight: 900;
+  line-height: 1.5;
+}
+
+.notice-member p {
+  margin: 4px 0 0;
+  font-size: 0.82rem;
+  line-height: 1.7;
+}
+
+.notice-back {
+  display: block;
+  margin: 18px auto 0;
+  padding: 3px 8px;
+  border: 3px solid #000;
+  background: var(--bg);
+  box-shadow: 3px 3px 0 #000;
+  font-size: 0.7rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.notice-back:hover {
+  background: var(--yellow);
+}
+
+.notice-back:active {
+  transform: translate(3px, 3px);
+  box-shadow: none;
+}
+
+.notice-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px clamp(20px, 4vw, 34px);
+  border-top: 4px solid #000;
+  background: var(--bg);
+  font-size: 0.7rem;
+  font-weight: 900;
+}
+
+.notice-foot .btn {
+  min-height: 36px;
+  padding: 5px 10px;
+  font-size: 0.72rem;
+}
+
+@media (max-width: 560px) {
+  .notice-head {
+    padding-right: 58px;
+  }
+
+  .notice-head__row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .notice-scroll {
+    padding-top: 18px;
+  }
+
+  .notice-text {
+    font-size: 0.94rem;
+    line-height: 1.9;
+  }
+
+  .notice-foot {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 7px;
+  }
+}

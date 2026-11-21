@@ -1,0 +1,53 @@
+/* 点击粒子 · 只使用孟菲斯几何小纸片 */
+.fx-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.fx-bit {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border: 2px solid #000;
+  background: var(--fx-c, #feca57);
+  will-change: transform, opacity;
+  animation: fx-burst 280ms var(--ease) forwards;
+}
+
+.fx-bit--circle {
+  border-radius: 50%;
+}
+
+.fx-bit--tri {
+  width: 0;
+  height: 0;
+  border: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 9px solid var(--fx-c, #feca57);
+  background: none;
+  filter: drop-shadow(2px 2px 0 #000);
+}
+
+@keyframes fx-burst {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(0.65);
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--fx-dx, 18px), var(--fx-dy, -18px)) rotate(var(--fx-rot, 90deg)) scale(1);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-bit {
+    display: none;
+  }
+}

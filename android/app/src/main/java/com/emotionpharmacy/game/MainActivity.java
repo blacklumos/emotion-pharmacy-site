@@ -44,6 +44,9 @@ public class MainActivity extends Activity {
         MIME.put("jpeg", "image/jpeg");
         MIME.put("webp", "image/webp");
         MIME.put("ico", "image/x-icon");
+        MIME.put("mp3", "audio/mpeg");
+        MIME.put("ogg", "audio/ogg");
+        MIME.put("wav", "audio/wav");
         MIME.put("woff", "font/woff");
         MIME.put("woff2", "font/woff2");
     }

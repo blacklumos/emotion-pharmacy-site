@@ -1,4 +1,4 @@
-/* 信件 03 · 许棠 · 寄与故人
+/* 信件 03 · 许然 · 寄与故人
  * 一次来访一封信；variants 按当时配给他的药，给出不同的正文与结尾。
  */
 EP.defineLetters([
@@ -8,7 +8,7 @@ EP.defineLetters([
     eventId: 'event_003',
     number: 3,
     salutation: '药店主人：',
-    signature: '许棠',
+    signature: '许然',
     variants: {
       courage: {
         title: '亲手寄出',

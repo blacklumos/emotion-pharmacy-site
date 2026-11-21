@@ -261,6 +261,288 @@
   transform: translateX(-50%) rotate(-2deg);
 }
 
+/* ---------- 公告牌 ---------- */
+
+.stage__notice {
+  position: absolute;
+  left: 32.5%;
+  bottom: 14%;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  width: clamp(60px, 8%, 82px);
+  height: clamp(88px, 32%, 118px);
+  padding: 10px 7px 7px;
+  border: 4px solid #000;
+  background: var(--yellow);
+  box-shadow: 5px 5px 0 #000;
+  color: #000;
+  text-align: left;
+  cursor: pointer;
+  transform: rotate(-2.5deg);
+  transition: background-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.stage__notice::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -10px;
+  width: 12px;
+  height: 12px;
+  border: 3px solid #000;
+  border-radius: 50%;
+  background: var(--red);
+  transform: translateX(-50%);
+}
+
+.stage__notice::after {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 10px;
+  width: 22px;
+  height: 9px;
+  border: 3px solid #000;
+  background: var(--cyan);
+  transform: rotate(-20deg);
+}
+
+.stage__notice:hover {
+  background: var(--pink);
+  box-shadow: 8px 8px 0 #000;
+  transform: rotate(-0.5deg);
+}
+
+.stage__notice:active {
+  transform: translate(4px, 4px) rotate(-2.5deg);
+  box-shadow: none;
+}
+
+.stage__notice__title {
+  font-size: 0.82rem;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.stage__notice__sub {
+  font-size: 0.5rem;
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+.stage__notice__lines {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  margin-top: 5px;
+}
+
+.stage__notice__lines i {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background: #000;
+}
+
+.stage__notice:focus-visible {
+  outline: 4px solid #000;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 8px var(--cyan), 5px 5px 0 #000;
+}
+
+.stage--idle .stage__notice {
+  left: 2%;
+  bottom: 10%;
+}
+
+/* ---------- 门铃与入场 ---------- */
+
+.stage__bell {
+  position: absolute;
+  left: 24%;
+  top: 1%;
+  z-index: 6;
+  width: 30px;
+  height: 34px;
+  pointer-events: none;
+  transform-origin: 50% 0;
+}
+
+.stage__bell-arm {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 3px;
+  height: 11px;
+  background: #000;
+  transform: translateX(-50%);
+}
+
+.stage__bell-cup {
+  position: absolute;
+  left: 50%;
+  top: 9px;
+  width: 26px;
+  height: 19px;
+  border: 3px solid #000;
+  border-radius: 50% 50% 18% 18% / 65% 65% 25% 25%;
+  background: var(--yellow);
+  transform: translateX(-50%);
+}
+
+.stage__bell-ball {
+  position: absolute;
+  left: 50%;
+  top: 27px;
+  width: 9px;
+  height: 9px;
+  border: 3px solid #000;
+  border-radius: 50%;
+  background: var(--red);
+  transform: translateX(-50%);
+}
+
+.stage__bell::after {
+  content: "叮";
+  position: absolute;
+  left: -20px;
+  top: 4px;
+  padding: 0 4px;
+  border: 2px solid #000;
+  background: var(--yellow);
+  font-size: 0.58rem;
+  font-weight: 900;
+  line-height: 1.5;
+  opacity: 0;
+  transform: scale(0.7);
+}
+
+.stage--entering .stage__bell {
+  animation: bell-swing 620ms var(--ease) both;
+}
+
+.stage--entering .stage__bell::after {
+  animation: bell-ding 620ms var(--ease) both;
+}
+
+.stage--entering .portrait-block {
+  animation: customer-in 320ms var(--ease) both;
+}
+
+@keyframes bell-swing {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  18% {
+    transform: rotate(-13deg);
+  }
+  40% {
+    transform: rotate(10deg);
+  }
+  62% {
+    transform: rotate(-6deg);
+  }
+  80% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes bell-ding {
+  0% {
+    opacity: 0;
+    transform: translateY(5px) scale(0.7);
+  }
+  22% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  72% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-8px) scale(1);
+  }
+}
+
+@keyframes customer-in {
+  0% {
+    transform: translate(-50%, 14px);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage--entering .stage__bell,
+  .stage--entering .stage__bell::after,
+  .stage--entering .portrait-block {
+    animation: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .stage__notice {
+    left: 32.5%;
+    bottom: 20%;
+    width: 5.5%;
+    min-width: 38px;
+    height: 24%;
+    min-height: 54px;
+    padding: 7px 5px 5px;
+  }
+
+  .stage__notice__title {
+    font-size: 0.66rem;
+  }
+
+  .stage__notice__sub {
+    font-size: 0.42rem;
+  }
+}
+
+@media (max-width: 720px) {
+  .stage__notice {
+    left: 6%;
+    bottom: 26%;
+    width: clamp(48px, 14%, 58px);
+    height: clamp(60px, 26%, 76px);
+    min-width: 0;
+    min-height: 0;
+    padding: 7px 5px 5px;
+  }
+
+  .stage__notice__title {
+    font-size: 0.68rem;
+  }
+
+  .stage__notice__sub {
+    display: none;
+  }
+
+  .stage__notice__lines {
+    gap: 3px;
+    margin-top: 4px;
+  }
+
+  .stage__notice__lines i {
+    height: 3px;
+  }
+
+  .stage--idle .stage__notice {
+    left: 2%;
+    bottom: 10%;
+  }
+}
+
 /* ---------- 提问气泡 ---------- */
 
 .bubble-layer {

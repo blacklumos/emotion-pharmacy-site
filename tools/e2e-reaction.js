@@ -138,7 +138,7 @@ async function main() {
   await click('.ending-letter');
   await sleep(500);
   check(await evaluate('document.querySelector(".letter-sheet") !== null'), '可以打开最后一封信');
-  check(await evaluate('document.querySelector(".letter-title").textContent') === '橘子很甜', '最后一封信标题正确');
+  check(await evaluate('document.querySelector(".letter-title").textContent') === '没有成绩的一天', '最后一封信标题正确');
   await click('[data-memory=remembered]');
   check(await evaluate('EP.state.letterInfo("letter_010").memoryState') === 'remembered', '最后一封信可以铭记');
   await click('.letter-close-row [data-close]');

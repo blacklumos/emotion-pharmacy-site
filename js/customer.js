@@ -3,9 +3,10 @@
  */
 (function () {
   const EP = window.EP;
+  let lastEntryKey = null;
 
   function reset() {
-    /* 对话进度保存在 state 里，这里不需要额外清理。 */
+    lastEntryKey = null;
   }
 
   function shelfHtml() {
@@ -113,8 +114,31 @@
     );
   }
 
+  function noticeBoardHtml() {
+    return (
+      '<button type="button" class="stage__notice" data-action="notice" aria-label="查看公告与制作组名单" title="公告">' +
+      '<span class="stage__notice__title">公告</span>' +
+      '<span class="stage__notice__sub">致来客</span>' +
+      '<span class="stage__notice__lines" aria-hidden="true"><i></i><i></i><i></i></span>' +
+      '</button>'
+    );
+  }
+
+  function stageBellHtml() {
+    return (
+      '<div class="stage__bell" aria-hidden="true">' +
+      '<span class="stage__bell-arm"></span>' +
+      '<span class="stage__bell-cup"></span>' +
+      '<span class="stage__bell-ball"></span>' +
+      '</div>'
+    );
+  }
+
   function screenHtml(ev, ch, active) {
     const view = EP.state.dialogueView();
+    const entryKey = ev.id;
+    const entering = lastEntryKey !== entryKey;
+    lastEntryKey = entryKey;
     const stageHint = !view.done
       ? '读下去'
       : active.locked
@@ -122,7 +146,7 @@
         : '可以提问，也可以随时去配药';
     return (
       '<div class="customer-screen" data-char="' + ch.id + '" style="--theme:' + ch.themeColor + ';--second:' + ch.secondaryColor + '">' +
-      '<div class="stage">' +
+      '<div class="stage' + (entering ? ' stage--entering' : '') + '">' +
       '<div class="stage__disc" aria-hidden="true"></div>' +
       '<div class="stage__window" aria-hidden="true"></div>' +
       '<div class="stage__shelf" aria-hidden="true">' + shelfHtml() + '</div>' +
@@ -130,8 +154,10 @@
       '<div class="stage__shape stage__shape--circle" aria-hidden="true"></div>' +
       '<div class="stage__shape stage__shape--tri" aria-hidden="true"></div>' +
       '<div class="stage__shape stage__shape--stripes" aria-hidden="true"></div>' +
+      noticeBoardHtml() +
+      stageBellHtml() +
       '<figure class="portrait-block">' +
-      EP.portrait.img(ch, 'portrait-img portrait-img--stage') +
+      EP.portrait.img(ch, 'portrait-img portrait-img--stage', { loading: 'eager', priority: 'high' }) +
       '<figcaption class="nameplate">' +
       '<span class="nameplate__name">' + EP.ui.esc(ch.name) + '</span>' +
       '<span class="nameplate__meta">' + ch.age + ' 岁 · ' + EP.ui.esc(ch.occupation) + '</span>' +
@@ -187,7 +213,7 @@
 
     root.innerHTML =
       '<div class="idle-screen">' +
-      '<div class="stage stage--idle" aria-hidden="true">' +
+      '<div class="stage stage--idle">' +
       '<div class="stage__disc"></div>' +
       '<div class="stage__shape stage__shape--circle"></div>' +
       '<div class="stage__shape stage__shape--tri"></div>' +
@@ -199,6 +225,8 @@
       '<div class="shopfront__door"></div>' +
       '<div class="shopfront__step"></div>' +
       '</div>' +
+      stageBellHtml() +
+      noticeBoardHtml() +
       '</div>' +
       '<section class="idle-card">' +
       '<span class="geo geo--circle" aria-hidden="true"></span>' +
@@ -235,7 +263,7 @@
       '<section class="wait-card">' +
       '<span class="geo geo--circle" aria-hidden="true"></span>' +
       '<span class="geo geo--tri" aria-hidden="true"></span>' +
-      '<div class="wait-portrait">' + EP.portrait.img(ch, 'portrait-img portrait-img--wait') + '</div>' +
+      '<div class="wait-portrait">' + EP.portrait.img(ch, 'portrait-img portrait-img--wait', { loading: 'eager' }) + '</div>' +
       '<p class="kicker">柜台前</p>' +
       '<h2>' + EP.ui.esc(ch.name) + '还在等你。</h2>' +
       '<p class="idle-text">' + EP.ui.esc(text) + '</p>' +
@@ -255,7 +283,7 @@
     const html =
       '<div class="profile">' +
       '<button type="button" class="overlay__close" data-close="1" aria-label="关闭">×</button>' +
-      '<div class="profile__portrait">' + EP.portrait.img(ch, 'portrait-img portrait-img--profile') + '</div>' +
+      '<div class="profile__portrait">' + EP.portrait.img(ch, 'portrait-img portrait-img--profile', { loading: 'eager' }) + '</div>' +
       '<div class="profile__body">' +
       '<p class="kicker">' + EP.ui.esc(ch.role || '') + '</p>' +
       '<h2>' + EP.ui.esc(ch.name) + '<span class="profile__meta">' + ch.age + ' 岁 · ' + EP.ui.esc(ch.occupation) + '</span></h2>' +
@@ -312,6 +340,8 @@
         } else if (action === 'profile') {
           const current = EP.state.currentEvent();
           if (current) openProfile(EP.getCharacter(current.characterId));
+        } else if (action === 'notice') {
+          EP.notice.open();
         } else if (action === 'begin-next') {
           EP.app.startNext();
         } else if (action === 'go-archive') {

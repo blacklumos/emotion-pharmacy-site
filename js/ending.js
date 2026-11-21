@@ -15,7 +15,7 @@
       ? '<div class="ending-final">' +
         '<p class="ending-final__label">最后一封</p>' +
         '<button type="button" class="ending-letter" data-open-letter="' + finalLetter.id + '" style="--theme:' + finalChar.themeColor + ';--second:' + finalChar.secondaryColor + '">' +
-        '<span class="ending-letter__avatar">' + EP.portrait.img(finalChar, 'portrait-img portrait-img--ending', { alt: '' }) + '</span>' +
+        '<span class="ending-letter__avatar">' + EP.portrait.img(finalChar, 'portrait-img portrait-img--ending', { alt: '', loading: 'eager' }) + '</span>' +
         '<span class="ending-letter__name">' + EP.ui.esc(finalChar.name) + '</span>' +
         '<span class="ending-letter__title">《' + EP.ui.esc(finalLetter.title) + '》' + (finalInfo.read ? '' : ' · 未读') + '</span>' +
         '<span class="ending-letter__seal" aria-hidden="true">' + EP.ui.esc(finalChar.seal) + '</span>' +

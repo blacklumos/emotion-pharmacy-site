@@ -1,4 +1,4 @@
-/* 信件 06 · 周野 · 我还是帮了
+/* 信件 06 · 周叙言 · 我还是帮了
  * 一次来访一封信；variants 按当时配给他的药，给出不同的正文与结尾。
  */
 EP.defineLetters([
@@ -8,7 +8,7 @@ EP.defineLetters([
     eventId: 'event_006',
     number: 6,
     salutation: '老板：',
-    signature: '周野',
+    signature: '周叙言',
     variants: {
       courage: {
         title: '问了一句',

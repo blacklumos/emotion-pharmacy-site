@@ -1,4 +1,4 @@
-/* 信件 05 · 周野 · 工作之外
+/* 信件 05 · 周叙言 · 工作之外
  * 一次来访一封信；variants 按当时配给他的药，给出不同的正文与结尾。
  */
 EP.defineLetters([
@@ -8,7 +8,7 @@ EP.defineLetters([
     eventId: 'event_005',
     number: 5,
     salutation: '老板：',
-    signature: '周野',
+    signature: '周叙言',
     variants: {
       courage: {
         title: '拒绝了',

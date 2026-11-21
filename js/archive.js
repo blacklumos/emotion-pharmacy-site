@@ -15,22 +15,41 @@
 
     const remembered = info.memoryState === 'remembered';
     const deferred = info.memoryState === 'deferred';
-    const stateLabel = remembered ? '铭记' : deferred ? '暂存' : info.read ? '已读' : '未读';
+    const unread = !info.read;
+    const stateLabel = remembered ? '铭记' : deferred ? '暂存' : unread ? '未拆' : '已读';
     const pattern = ch.pattern || 'dots';
 
-    return (
-      '<button type="button" class="letter-card pattern--' + pattern + (info.read ? '' : ' is-unread') + (deferred ? ' is-deferred' : '') + '"' +
-      ' data-letter="' + letter.id + '" style="--theme:' + ch.themeColor + ';--second:' + ch.secondaryColor + '">' +
-      '<span class="letter-card__top"><span class="letter-card__no">第 ' + number + ' 封</span>' +
-      '<span class="letter-card__state">' + stateLabel + '</span></span>' +
+    const envelope =
+      '<span class="letter-card__body letter-card__body--envelope">' +
+      '<svg class="letter-envelope" viewBox="0 0 240 120" aria-hidden="true" focusable="false">' +
+      '<rect x="4" y="12" width="232" height="100" fill="var(--bg)" stroke="#000" stroke-width="6"/>' +
+      '<path d="M4 112 L94 54 M236 112 L146 54" fill="none" stroke="#000" stroke-width="6"/>' +
+      '<path class="letter-envelope__flap" d="M4 12 L120 72 L236 12 Z" fill="var(--second)" stroke="#000" stroke-width="6"/>' +
+      '<rect x="184" y="25" width="30" height="36" fill="var(--yellow)" stroke="#000" stroke-width="4" transform="rotate(5 199 43)"/>' +
+      '<circle cx="120" cy="74" r="22" fill="var(--theme)" stroke="#000" stroke-width="6"/>' +
+      '<text x="120" y="83" text-anchor="middle" font-size="23" font-weight="900" fill="#000" font-family="PingFang SC, Microsoft YaHei, sans-serif">' + EP.ui.esc(ch.seal) + '</text>' +
+      '</svg>' +
+      '<span class="letter-envelope__caption">' + EP.ui.esc(ch.name) + '的来信 · 点击拆开</span>' +
+      '</span>';
+
+    const readBody =
       '<span class="letter-card__body">' +
       '<span class="letter-card__avatar">' + EP.portrait.img(ch, 'portrait-img portrait-img--card', { alt: '' }) + '</span>' +
       '<span class="letter-card__text">' +
       '<span class="letter-card__name">' + EP.ui.esc(ch.name) + '</span>' +
       '<span class="letter-card__title">' + EP.ui.esc(view.title) + '</span>' +
       '<span class="letter-card__sub">' + EP.ui.esc(EP.getEvent(letter.eventId) ? EP.getEvent(letter.eventId).title : '') + '</span>' +
-      '</span></span>' +
-      '<span class="letter-card__seal" aria-hidden="true">' + EP.ui.esc(ch.seal) + '</span>' +
+      '</span></span>';
+
+    return (
+      '<button type="button" class="letter-card pattern--' + pattern +
+      (unread ? ' is-unread letter-card--envelope' : '') +
+      (deferred ? ' is-deferred' : '') + '"' +
+      ' data-letter="' + letter.id + '" style="--theme:' + ch.themeColor + ';--second:' + ch.secondaryColor + '">' +
+      '<span class="letter-card__top"><span class="letter-card__no">第 ' + number + ' 封</span>' +
+      '<span class="letter-card__state">' + stateLabel + '</span></span>' +
+      (unread ? envelope : readBody) +
+      (unread ? '' : '<span class="letter-card__seal" aria-hidden="true">' + EP.ui.esc(ch.seal) + '</span>') +
       '<span class="geo geo--circle" aria-hidden="true"></span>' +
       '<span class="geo geo--tri" aria-hidden="true"></span>' +
       '</button>'
@@ -86,7 +105,17 @@
     });
     root.querySelectorAll('[data-letter]').forEach(function (el) {
       el.addEventListener('click', function () {
-        openLetter(el.getAttribute('data-letter'));
+        const letterId = el.getAttribute('data-letter');
+        if (el.classList.contains('letter-card--envelope')) {
+          if (el.classList.contains('is-opening')) return;
+          el.classList.add('is-opening');
+          const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          setTimeout(function () {
+            openLetter(letterId);
+          }, reduceMotion ? 0 : 180);
+          return;
+        }
+        openLetter(letterId);
       });
     });
   }
@@ -164,7 +193,7 @@
       '<span class="geo geo--circle" aria-hidden="true"></span>' +
       '<span class="geo geo--tri" aria-hidden="true"></span>' +
       '<header class="letter-head">' +
-      '<span class="letter-head__avatar">' + EP.portrait.img(ch, 'portrait-img portrait-img--letter', { alt: '' }) + '</span>' +
+      '<span class="letter-head__avatar">' + EP.portrait.img(ch, 'portrait-img portrait-img--letter', { alt: '', loading: 'eager' }) + '</span>' +
       '<div class="letter-head__meta">' +
       '<span class="letter-head__name">' + EP.ui.esc(ch.name) + '</span>' +
       '<span>第 ' + EP.letterNumber(letter.id) + ' 封来信</span>' +

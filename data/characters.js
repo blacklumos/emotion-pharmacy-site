@@ -57,7 +57,7 @@ EP.defineCharacters([
     paperColor: '#fef9ef',
     pattern: 'waves',
     seal: '然',
-    portrait: 'assets/characters/xutang.png',
+    portrait: 'assets/characters/xutang.svg',
     keywords: ['文雅', '克制', '怀旧', '善写难言'],
     description: '他能把一件事写得很漂亮，却未必能在现实里说清楚。他不是活在古代，只是习惯借助文字组织情感。',
     speech: [
@@ -79,7 +79,7 @@ EP.defineCharacters([
     paperColor: '#fef9ef',
     pattern: 'grid',
     seal: '叙',
-    portrait: 'assets/characters/zhouye.png',
+    portrait: 'assets/characters/zhouye.svg',
     keywords: ['拒绝','直接', '务实', '责任感', '不善安慰'],
     description: '他不擅长修饰语言，却不代表他粗心。他可能是六个人里最能察觉别人实际困难的人，只是不知道该怎么安慰。',
     speech: [

@@ -147,7 +147,7 @@ async function main() {
 
   await click('[data-nav=archive]');
   check(await evaluate('document.querySelectorAll(".letter-card:not(.letter-card--locked)").length') === 1, '档案中有一封已送达的信');
-  check(await evaluate('document.querySelector(".letter-card .portrait-img") !== null'), '信件卡片使用可替换的角色立绘');
+  check(await evaluate('document.querySelector(".letter-card .letter-envelope") !== null'), '未读信件显示为信封');
   await click('.letter-card[data-letter=letter_001]');
   check(await evaluate('document.querySelector(".letter-sheet") !== null'), '打开信纸');
   check(await evaluate('document.querySelector(".letter-head .portrait-img") !== null'), '信纸使用同一张立绘');
@@ -157,6 +157,7 @@ async function main() {
   check(await evaluate('document.querySelector(".letter-memory.is-deferred") !== null'), '界面切换为暂存状态');
   await click('.letter-close-row [data-close]');
   check(await evaluate('document.querySelector(".overlay") === null'), '可以合上信');
+  check(await evaluate('document.querySelector(".letter-card .portrait-img") !== null'), '读完后卡片变为头像');
 
   await click('[data-nav=customer]');
   await send('Page.reload');

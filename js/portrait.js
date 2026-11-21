@@ -1,5 +1,5 @@
 /* 人物立绘加载器。
- * 立绘是独立图片资源（assets/characters/*.svg），换图只需要改 data/characters.js 的 portrait 字段。
+ * 立绘是独立图片资源（assets/characters/*.svg 或 *.webp），换图只需要改 data/characters.js 的 portrait 字段。
  * 图片缺失或加载失败时，会退回到一张同样风格的颜色占位图，不会让界面破版。
  */
 (function () {
@@ -35,11 +35,15 @@
     if (!ch) return '';
     const opts = options || {};
     const cls = ['portrait-img', className || ''].filter(Boolean).join(' ');
+    const loading = opts.loading || 'lazy';
+    const priority = opts.priority ? ' fetchpriority="' + EP.ui.esc(opts.priority) + '"' : '';
+    const src = ch.portrait || '';
     return (
       '<img class="' + cls + '"' +
-      ' src="' + EP.ui.esc(ch.portrait || '') + '"' +
+      ' src="' + EP.ui.esc(src) + '"' +
       ' alt="' + EP.ui.esc(opts.alt || ch.name + '的立绘') + '"' +
-      ' width="400" height="520" decoding="async" draggable="false"' +
+      ' width="400" height="520" loading="' + loading + '"' + priority +
+      ' decoding="async" draggable="false"' +
       ' data-character="' + EP.ui.esc(ch.id) + '"' +
       ' onerror="EP.portrait.fallback(this)">'
     );

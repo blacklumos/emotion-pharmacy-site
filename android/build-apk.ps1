@@ -77,12 +77,17 @@ if (Test-Path $www) { Remove-Item -LiteralPath $www -Recurse -Force }
 Write-Host '== 复制游戏 =='
 New-Item -ItemType Directory -Force -Path $www | Out-Null
 Copy-Item -LiteralPath (Join-Path $game 'index.html') -Destination (Join-Path $www 'index.html') -Force
+if (Test-Path (Join-Path $game 'bgm.mp3')) {
+    Copy-Item -LiteralPath (Join-Path $game 'bgm.mp3') -Destination (Join-Path $www 'bgm.mp3') -Force
+}
 foreach ($dir in @('css', 'js', 'data')) {
     Copy-Item -LiteralPath (Join-Path $game $dir) -Destination (Join-Path $www $dir) -Recurse -Force
 }
 $characters = Join-Path $www 'assets\characters'
 New-Item -ItemType Directory -Force -Path $characters | Out-Null
-Copy-Item -Path (Join-Path $game 'assets\characters\*.svg') -Destination $characters -Force
+Get-ChildItem (Join-Path $game 'assets\characters') -File |
+    Where-Object { $_.Extension -eq '.svg' -or $_.Extension -eq '.webp' } |
+    Copy-Item -Destination $characters -Force
 $webFiles = (Get-ChildItem -Recurse -File $www).Count
 Write-Host "  $webFiles 个网页文件"
 

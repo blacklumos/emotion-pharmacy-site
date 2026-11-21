@@ -13,6 +13,8 @@
     fence: '<path d="M10 35 V12 M22 35 V7 M34 35 V12" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/><path d="M6 21 H39 M6 29 H39" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>'
   };
 
+  let bottleFx = '';
+
   function glyphSvg(id) {
     return '<svg viewBox="0 0 44 44" aria-hidden="true" focusable="false">' + (GLYPHS[id] || GLYPHS.seed) + '</svg>';
   }
@@ -72,6 +74,8 @@
   function shelfView(ev, ch, active) {
     const draftId = active.draft;
     const medicine = draftId ? EP.getMedicine(draftId) : null;
+    const justFilled = bottleFx;
+    bottleFx = '';
     const detail = medicine
       ? '<p class="med-detail__meaning">' + EP.ui.esc(medicine.meaning) + '</p><p class="med-detail__note">' + EP.ui.esc(medicine.note) + '</p>'
       : '<p class="med-detail__meaning">从药柜里选一味药，放进瓶子。</p><p class="med-detail__note">没有哪一种药是标准答案。客人怎么理解它，由客人决定。</p>';
@@ -83,11 +87,13 @@
       '<p class="dispense-hint">' + EP.ui.esc(ev.visitLabel) + ' · ' + EP.ui.esc(ev.title) + '</p>' +
       '</header>' +
       '<div class="dispense-layout">' +
-      '<section class="bottle-stand">' +
+      '<section class="bottle-stand' + (justFilled ? ' bottle-stand--just-filled' : '') + '" style="--pour:' + (medicine ? medicine.color : '#fef9ef') + '">' +
       '<span class="geo geo--circle" aria-hidden="true"></span>' +
       '<span class="geo geo--tri" aria-hidden="true"></span>' +
       '<span class="geo geo--stripes" aria-hidden="true"></span>' +
-      '<div class="bottle-stand__bottle">' + bottleSvg(medicine, { uid: 'main' }) + '</div>' +
+      '<div class="bottle-stand__bottle">' + bottleSvg(medicine, { uid: 'main' }) +
+      '<span class="pour-drops" aria-hidden="true"><i></i><i></i><i></i></span>' +
+      '</div>' +
       '<div class="med-detail">' + detail + '</div>' +
       '<p class="dispense-note">交药之后，这次来访就会结束。现在还可以回柜台继续聊。</p>' +
       '<button type="button" class="btn btn--primary btn--block" data-action="confirm"' + (medicine ? '' : ' disabled') + '>' +
@@ -123,7 +129,7 @@
       '<span class="geo geo--circle" aria-hidden="true"></span>' +
       '<span class="geo geo--tri" aria-hidden="true"></span>' +
       '<div class="given-bottle">' + bottleSvg(medicine, { uid: 'given' }) + '</div>' +
-      '<figure class="given-char">' + EP.portrait.img(ch, 'portrait-img portrait-img--given') + '<figcaption>' + EP.ui.esc(ch.name) + '</figcaption></figure>' +
+      '<figure class="given-char">' + EP.portrait.img(ch, 'portrait-img portrait-img--given', { loading: 'eager' }) + '<figcaption>' + EP.ui.esc(ch.name) + '</figcaption></figure>' +
       '</aside>' +
       '<section class="given-panel" aria-live="polite">' +
       '<p class="dialogue-hint"' + (view.done ? ' hidden' : '') + '>点击对话继续 · 每次只出现一句</p>' +
@@ -196,14 +202,32 @@
     root.onclick = function (event) {
       const med = event.target.closest('[data-med]');
       if (med) {
-        if (EP.state.selectMedicine(med.getAttribute('data-med'))) render(root);
+        const before = EP.state.get().active && EP.state.get().active.draft;
+        if (EP.state.selectMedicine(med.getAttribute('data-med'))) {
+          const after = EP.state.get().active && EP.state.get().active.draft;
+          if (after && after !== before) bottleFx = 'fill';
+          render(root);
+        }
         return;
       }
       const actionEl = event.target.closest('[data-action]');
       if (actionEl) {
         const action = actionEl.getAttribute('data-action');
         if (action === 'confirm') {
-          if (EP.state.giveMedicine()) render(root);
+          const bottle = root.querySelector('.bottle-stand__bottle');
+          if (bottle && !bottle.classList.contains('is-pouring')) {
+            const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            bottle.classList.add('is-pouring');
+            actionEl.disabled = true;
+            setTimeout(function () {
+              if (EP.state.giveMedicine()) {
+                render(root);
+              } else {
+                bottle.classList.remove('is-pouring');
+                actionEl.disabled = false;
+              }
+            }, reduceMotion ? 0 : 180);
+          }
         } else if (action === 'go-customer') {
           EP.router.go('customer');
         } else if (action === 'go-archive') {

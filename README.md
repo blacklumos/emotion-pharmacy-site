@@ -6,7 +6,7 @@
 
 ![六位角色立绘](docs/characters.png)
 
-六张立绘源文件在 `assets/characters/`，替换方法见 [assets/characters/README.md](assets/characters/README.md)。
+六张立绘在 `assets/characters/`：全部是 400 × 520、8px 黑色描边的 SVG；许然和周叙言已按新设定重绘，和另外四位同规格。替换方法见 [assets/characters/README.md](assets/characters/README.md)。
 
 ---
 
@@ -27,7 +27,7 @@ node tools/serve.js
 
 **方式三：安卓 APK**
 
-已打包为：[EmotionPharmacy-v2.apk](EmotionPharmacy-v2.apk)（约 176 KB，Android 7.0+，侧载安装）。
+已打包为：[EmotionPharmacy-v2.apk](EmotionPharmacy-v2.apk)（约 7 MB，含背景音乐；Android 7.0+，侧载安装）。
 
 - 包名 `com.emotionpharmacy.game`，版本 `2.0`，自签名 release APK。
 - 安装时允许“安装未知来源应用”即可；没有广告或外部接口。
@@ -75,6 +75,20 @@ APK 使用 WebView 加载本地游戏资源，并保留 `localStorage` 存档；
 - 触发「沉默」后，提问关闭，只能去配药。
 - 「防御」类反应不会关闭提问，但会让人物表明自己的立场。
 
+### 柜台公告牌
+
+柜台上立着一块小小的「公告」牌，不挡气泡和人物。点开可以读制作组的公告：
+
+- 公告开头前有一个 **「制作组名单 ↓」** 按钮，点击会直接滚到横线以下的名单部分。
+- 不点按钮也可以正常向下滚动，在最底部看到同一份名单。
+- 公告顶部的「制作组名单 ↓」按钮和结尾的「合上公告」都可以用键盘操作。
+
+公告内容写在 `js/notice.js` 里，可以直接改文字，不需要动界面。
+
+![柜台上的公告牌](docs/notice-board.png)
+
+![公告与制作组名单](docs/notice.png)
+
 ### 信件与记忆
 
 客人离开后信不会立刻出现：下一位客人推门时，上一封信才送达档案。最后一封信在全部来访结束后出现。
@@ -89,6 +103,15 @@ APK 使用 WebView 加载本地游戏资源，并保留 `localStorage` 存档；
 
 游戏不显示好感度、信任值或评分。它只记录你做过的事。
 
+### 互动反馈
+
+- **未读信封**：档案里的未读信先显示封着的信封和蜡封，点击拆开后进入信纸；读完合上，卡片才变成头像、标题都已出现的样式。
+- **点击粒子**：提问、选药、交药、拆信、铭记等操作会有几枚小的孟菲斯几何纸屑；逐句推进和点空白处是更轻的 3 枚反馈，不会每句都撒满屏。
+- **药瓶**：选药时液面会晃一下；交药时瓶子先倾斜、滴下几滴，再进入客人的专属回应。
+- **门铃**：新顾客入场的瞬间，门边的小铃会摆一下并冒出「叮」，立绘也会从下方轻轻落位。
+
+所有效果都会尊重系统的 `prefers-reduced-motion`：开启减少动效时，粒子、摇晃和入场动画都会关闭。
+
 ### 六种药与六位客人
 
 | 药物 | 主题 |
@@ -100,14 +123,14 @@ APK 使用 WebView 加载本地游戏资源，并保留 `localStorage` 存档；
 | 言说 | 表达与沟通 |
 | 边界 | 责任与关系 |
 
-| 角色 | 来访次数 | 主题 |
+| 角色（性别 / 年龄） | 来访次数 | 主题 |
 |---|--:|---|
-| 林栀 | 3 | 考场、选择、停下来 |
-| 唐沅 | 1 | 被看见与数据 |
-| 许棠 | 2 | 旧友、未寄出的信 |
-| 周野 | 2 | 责任与边界 |
-| 沈禾 | 1 | 家庭与自己的生日 |
-| 顾怀安 | 1 | 旧招牌与告别 |
+| 林栀（女，21） | 3 | 考场、选择、停下来 |
+| 唐沅沅（女，19） | 1 | 被看见与数据 |
+| 许然（男，40） | 2 | 旧友、未寄出的信 |
+| 周叙言（男，23） | 2 | 责任与边界 |
+| 沈禾（女，35） | 1 | 家庭与自己的生日 |
+| 顾怀安（男，63） | 1 | 旧招牌与告别 |
 
 同一味药在不同客人身上有完全独立的回应，没有“正确答案”。
 
@@ -133,7 +156,7 @@ APK 使用 WebView 加载本地游戏资源，并保留 `localStorage` 存档；
 ## 目录结构
 
 ```text
-emotion-pharmacy/
+emotion-pharmacy-site/
 ├── index.html                 入口与脚本顺序
 ├── EmotionPharmacy-v2.apk     安卓安装包
 ├── android/                   安卓外壳与打包脚本（见 android/README.md）
@@ -141,12 +164,16 @@ emotion-pharmacy/
 │   ├── main.css               基础、顶栏、导航、按钮、浮层、通用几何
 │   ├── customer.css           舞台、立绘、气泡、逐句对话面板
 │   ├── medicine.css           药瓶、药柜、交药回应
-│   └── archive.css            信件档案、信纸阅读、结尾
+│   ├── archive.css            信件档案、信纸阅读、结尾
+│   ├── notice.css             公告牌与制作组名单浮层
+│   └── fx.css                 点击粒子
 ├── js/
 │   ├── registry.js            数据注册表与取用接口（不碰界面）
 │   ├── storage.js             localStorage 读写
 │   ├── state.js               流程、对话进度、存档、记忆状态（不碰 DOM）
 │   ├── ui.js                  转义、浮层、确认框、提示条、焦点管理
+│   ├── notice.js              公告内容与制作组名单跳转
+│   ├── fx.js                  点击粒子的轻量反馈
 │   ├── portrait.js            立绘加载与缺图兜底
 │   ├── dialogue.js            台词渲染、逐句揭示、滚动提示
 │   ├── customer.js            顾客界面
@@ -165,7 +192,9 @@ emotion-pharmacy/
 │   └── characters/            六张可替换立绘 + 替换说明
 ├── docs/
 │   ├── characters.png         六位角色立绘总览
-│   └── gameplay.png           游戏界面截图
+│   ├── gameplay.png           游戏界面截图
+│   ├── notice-board.png       柜台公告牌
+│   └── notice.png             公告与制作组名单
 ├── tools/
 │   ├── validate.js            结构与剧本台词覆盖校验
 │   ├── simulate.js            不开浏览器跑完十次来访与存档
@@ -204,7 +233,7 @@ emotion-pharmacy/
 }
 ```
 
-立绘替换见 [assets/characters/README.md](assets/characters/README.md)。
+立绘替换见 [assets/characters/README.md](assets/characters/README.md)。所有界面都使用同一张完整立绘；保持 400 × 520、透明背景和粗黑描边，就能和现有角色保持一致。
 
 ### 事件
 
@@ -402,7 +431,7 @@ beginNext
 - **台词来自剧本**：`剧本.md` 中十次来访的进店剧情、全部提问与回应、药物回应均已完整转写，台词覆盖 100%。信件以剧本里的十封信为底本，按六味药改写成六十篇（标题、正文与结尾各不相同），因此信件正文不再逐句对应剧本，也不参与覆盖检查。
 - **少量补充文本**：为交互完整性新增了「道歉后的回应」「交付与离店的旁白」「空店文案」「人物小记」「药柜手记」。这些文字尽量贴近角色原本的语言习惯，均可直接在对应数据文件中替换。
 - **没有数值系统**：不设好感度、信任值、心理健康值；记忆状态只表示玩家如何对待一封信。
-- **立绘是可替换资源**：六张 SVG 放在 `assets/characters/`，换图只需改 `data/characters.js` 的 `portrait`；缺图时有占位图。详见 [assets/characters/README.md](assets/characters/README.md)。
+- **立绘是可替换资源**：六张 400 × 520 SVG 放在 `assets/characters/`，换图只需改 `data/characters.js` 的 `portrait`；缺图时有占位图。详见 [assets/characters/README.md](assets/characters/README.md)。
 - **风格**：Memphis；所有卡片使用 4px 黑边、硬投影、几何装饰和 150ms ease-out 动效，支持 `prefers-reduced-motion`。
 - **无音频**。移动端适配到 390px 宽，底部导航固定并留出安全区。
 

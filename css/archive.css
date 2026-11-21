@@ -266,6 +266,54 @@
   background: var(--red);
 }
 
+/* 未读信件：先看到一只封着的信封，拆开并读完后才变成头像卡片 */
+.letter-card--envelope {
+  min-height: 170px;
+}
+
+.letter-card--envelope .geo {
+  display: none;
+}
+
+.letter-card--envelope .letter-card__body--envelope {
+  display: block;
+  width: 100%;
+}
+
+.letter-envelope {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.letter-envelope__flap {
+  transform-box: fill-box;
+  transform-origin: top center;
+  transition: transform var(--dur) var(--ease);
+}
+
+.letter-card--envelope:hover .letter-envelope__flap {
+  transform: translateY(-2px);
+}
+
+.letter-card--envelope.is-opening {
+  cursor: wait;
+}
+
+.letter-card--envelope.is-opening .letter-envelope__flap {
+  transform: scaleY(0.08);
+}
+
+.letter-envelope__caption {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.62rem;
+  font-weight: 900;
+  line-height: 1.5;
+  text-align: center;
+}
+
 .letter-card.is-deferred {
   border-style: dashed;
 }
