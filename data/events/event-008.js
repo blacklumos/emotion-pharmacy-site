@@ -5,7 +5,7 @@ EP.defineEvents([
         characterId: 'char_shenhe',
         order: 8,
         title: '今天我也想过生日',
-        visitLabel: '第一次来访',
+        visitLabel: '初见是新人耶',
         scene: { time: '黄昏', place: '店内' },
         opening: [
             ['n', '推门进来的是一位身着素色外套的女士。'],
@@ -35,7 +35,7 @@ EP.defineEvents([
                 reaction: 'normal',
                 beats: [
                     ['c', '想。'],
-                    ['n', '她答得干脆，连自己都有几分意外。'],
+                    ['n', '她答得干脆，可能连自己都有几分意外。'],
                     ['c', '我惦记这次出行很久了。'],
                     ['c', '平日里工作忙碌，家里琐事不断，一直抽不开身，好不容易朋友也刚好有空。'],
                     ['n', '她又补上一句。'],

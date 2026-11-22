@@ -102,7 +102,7 @@
     return (
       '<section class="dialogue-panel" aria-live="polite">' +
       headerHtml(ev, EP.state.progress()) +
-      '<p class="dialogue-hint"' + (view.done ? ' hidden' : '') + '>点击对话继续 · 每次只出现一句</p>' +
+      '<p class="dialogue-hint"' + (view.done ? ' hidden' : '') + '>点击对话继续 </p>' +
       '<div class="dialogue-scroll-wrap">' +
       '<div class="dialogue-scroll" id="dialogue-scroll" tabindex="0" role="region" aria-label="对话，按回车继续">' +
       caption + beats + note +
@@ -183,19 +183,19 @@
     const pending = EP.state.pendingLetters();
     let title = '还没有人推门进来。';
     let text = '这间小店不出售感冒药。柜台上放着一只空瓶，等着下一个不知道该往哪里走的人。';
-    let hint = '一次点击只读一句。你可以随时提问，也可以随时走到药柜前。';
+    let hint = '你可以继续提问，也可以随时走到药柜前。';
     let actions = '';
 
     if (finished) {
       title = '今天的店，还亮着灯。';
-      text = '十次来访都结束了。十封信留在档案里，随时可以重新翻开。';
-      hint = '有些信，你选择记住；有些信，你选择先放一放。它们都还在。';
+      text = '嘿朋友，有没有注意过柜台上的公告板，那里有些有意思的东西';
+      hint = '谢谢你看到了这里，小店暂时休业，你可以去做其他想做的事啦QWQ';
       actions =
         '<button type="button" class="btn btn--primary" data-action="go-archive">翻阅信件</button>' +
         '<button type="button" class="btn btn--secondary" data-action="ending">今晚的结尾</button>' +
         '<button type="button" class="btn btn--ghost" data-action="restart">重新开始</button>';
     } else if (st.flags.started) {
-      title = '巷子里暂时安静。';
+      title = '巷子里暂时安静，确实也无法想象门庭若市的样子';
       text = pending.length
         ? '上一位客人的信还压在柜台下面。等下一位客人推门进来时，它会一起送到档案里。'
         : '你把药瓶放回架子上，擦干净柜台，等门上的铃铛再响一次。';

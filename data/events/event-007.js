@@ -5,7 +5,7 @@ EP.defineEvents([
         characterId: 'char_xutang',
         order: 7,
         title: '若故人来信',
-        visitLabel: '第二次来访',
+        visitLabel: '雁自回时',
         scene: { time: '雨天', place: '店内' },
         opening: [
             ['n', '这一回，许然来时比上次匆忙几分。'],
@@ -96,7 +96,7 @@ EP.defineEvents([
             rest: {
                 beats: [
                     ['c', '我想再等候一日。'],
-                    ['c', '不是逃避，只是此刻心绪纷乱，写下的字句，恐难做到坦诚。']
+                    ['c', '此刻心绪纷乱，写下的字句，恐难做到坦诚。']
                 ]
             },
             farewell: {
@@ -112,7 +112,7 @@ EP.defineEvents([
             },
             boundary: {
                 beats: [
-                    ['c', '我可以回应他的善意，却不必因此许诺，重拾从前的一切。']
+                    ['c', '回应他的善意，却不必因此许诺，重拾从前的一切。']
                 ]
             }
         },

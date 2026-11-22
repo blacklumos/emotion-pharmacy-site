@@ -78,7 +78,7 @@
     bottleFx = '';
     const detail = medicine
       ? '<p class="med-detail__meaning">' + EP.ui.esc(medicine.meaning) + '</p><p class="med-detail__note">' + EP.ui.esc(medicine.note) + '</p>'
-      : '<p class="med-detail__meaning">从药柜里选一味药，放进瓶子。</p><p class="med-detail__note">没有哪一种药是标准答案。客人怎么理解它，由客人决定。</p>';
+      : '<p class="med-detail__meaning">从药柜里选一味药。</p><p class="med-detail__note">怎么理解它，由客人决定。</p>';
 
     return (
       '<div class="dispense-screen" style="--theme:' + ch.themeColor + ';--second:' + ch.secondaryColor + '">' +
@@ -105,7 +105,7 @@
       '<div class="shelf" role="group" aria-label="药柜">' +
       EP.medicines().map(function (m) { return medCard(m, draftId); }).join('') +
       '</div>' +
-      '<p class="shelf-note"><span class="shelf-note__label">药柜手记</span>没有哪一种药能替人把路走完。它只是让人有力气，再走一段。</p>' +
+      '<p class="shelf-note"><span class="shelf-note__label">药柜手记</span>这里不贩卖神药desu</p>' +
       '</div>' +
       '</div></div>'
     );
@@ -132,7 +132,7 @@
       '<figure class="given-char">' + EP.portrait.img(ch, 'portrait-img portrait-img--given', { loading: 'eager' }) + '<figcaption>' + EP.ui.esc(ch.name) + '</figcaption></figure>' +
       '</aside>' +
       '<section class="given-panel" aria-live="polite">' +
-      '<p class="dialogue-hint"' + (view.done ? ' hidden' : '') + '>点击对话继续 · 每次只出现一句</p>' +
+      '<p class="dialogue-hint"' + (view.done ? ' hidden' : '') + '>点击对话继续 </p>' +
       '<div class="dialogue-scroll-wrap">' +
       '<div class="dialogue-scroll dialogue-scroll--given" id="given-scroll" tabindex="0" role="region" aria-label="客人的回应，按回车继续">' +
       beats +
@@ -161,7 +161,7 @@
       '<div class="empty-bottle">' + bottleSvg(null, { uid: 'empty' }) + '</div>' +
       '<p class="kicker">药柜</p>' +
       '<h2>现在没有需要配药的客人。</h2>' +
-      '<p class="idle-text">先回柜台看看谁在等你。选药和聊天可以随时来回切换。</p>' +
+      '<p class="idle-text">先回柜台看看谁在等你。</p>' +
       '<div class="idle-actions">' +
       '<button type="button" class="btn btn--primary" data-action="go-customer">回到柜台</button>' +
       (progress.unread ? '<button type="button" class="btn btn--secondary" data-action="go-archive">' + progress.unread + ' 封未读来信</button>' : '') +

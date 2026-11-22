@@ -43,14 +43,14 @@
       '<p class="kicker">打烊</p>' +
       '<h2 class="ending-title">十次来访结束了。</h2>' +
       '<p class="ending-text">你把最后一只药瓶放回架子上。<br>巷子里的灯一盏一盏亮起来，门上的铃铛安静地挂着。</p>' +
-      '<p class="ending-text">' + (progress.received >= progress.total ? '十封信都到了。' : '还有 ' + (progress.total - progress.received) + ' 封信没有送到。') + '</p>' +
+      '<p class="ending-text">' + (progress.received >= progress.total ? '你把信摆放得整整齐齐。' : '还有 ' + (progress.total - progress.received) + ' 封信没有送到。') + '</p>' +
       finalBlock +
       deferredBlock +
       '<div class="ending-actions">' +
       '<button type="button" class="btn btn--primary" data-close="1">在店里再坐一会儿</button>' +
       '<button type="button" class="btn btn--ghost" data-action="open-archive">翻阅所有信件</button>' +
       '</div>' +
-      '<p class="ending-foot">《情绪药店》第一版 · 六位客人，十次来访</p>' +
+      '<p class="ending-foot">感谢啦，不同选项收到的回应不同哦</p>' +
       '</div>';
 
     const dialog = EP.ui.modal(html, {

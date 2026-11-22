@@ -86,7 +86,7 @@
       ' · 铭记 ' + progress.remembered + ' · 暂存 ' + progress.deferred +
       (pending.length ? ' · ' + pending.length + ' 封在路上' : '') + '</p>' +
       '</header>' +
-      '<p class="archive-intro">信件是人物生活的延续，不是给你打分的成绩单。信里不会评价你当时的选择。</p>' +
+      '<p class="archive-intro">信件是人物生活的延续。</p>' +
       '<div class="archive-filters" role="tablist" aria-label="筛选信件">' +
       filters.map(function (f) {
         return '<button type="button" class="chip chip--filter' + (filter === f.id ? ' is-active' : '') + '" data-filter="' + f.id + '" role="tab" aria-selected="' + (filter === f.id) + '">' + f.label + '</button>';
@@ -157,7 +157,7 @@
     }
     if (info.memoryState === 'deferred') {
       return '<div class="letter-memory is-deferred">' +
-        '<p class="letter-memory__label">这封信被放在暂存里。忘记不等于删除，你仍然可以在档案中找到它。</p>' +
+        '<p class="letter-memory__label">这封信被放在暂存里等待稍后处理，你仍然可以在档案中找到它。</p>' +
         '<div class="letter-memory__actions">' +
         '<button type="button" class="btn btn--ghost btn--sm" data-memory="deferred">仍然暂时放下</button>' +
         '<button type="button" class="btn btn--primary btn--sm" data-memory="remembered">现在，我想记住它</button>' +
